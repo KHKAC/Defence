@@ -5,7 +5,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 1.0f; // 이동 속도
+    [SerializeField] float maxHP = 5.0f;
+    float currentHP;
     int currentIndex; // 현재 경로 인덱스
+    bool isDie;
+    int gold = 10;
     EnemyManager emi; // 자주 사용할 인스턴스 간소화
 
     /// <summary>
@@ -19,7 +23,8 @@ public class Enemy : MonoBehaviour
         currentIndex = 0;
         // 위치는 시작인덱스에서 해당하는 경로 위치로 지정
         transform.position = emi.Waypoints[currentIndex].position;
-        //transform.position = ;
+        isDie = false;
+        currentHP = maxHP;
     }
 
     void Update()
@@ -44,7 +49,7 @@ public class Enemy : MonoBehaviour
         else
         {
             // 목표에 도달했으므로 삭제 처리
-            OnDie();
+            OnDie(true);
         }
     }
 
@@ -52,9 +57,27 @@ public class Enemy : MonoBehaviour
     /// 적이 Goal에 도달하거나 체력이 다해 죽을 경우 호출
     /// 내부에서는 이 적을 관리하는 매니저에서 관련된 처리를 하게 한다
     /// </summary>
-    public void OnDie()
+    public void OnDie(bool isArrivedGoal = false)
     {
-        // 매니저에서 삭제 처리
-        emi.DestroyEnemy(this);
+        // 매니저에서 삭제 처리, 골드 추가
+        emi.DestroyEnemy(this, gold, isArrivedGoal);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if(isDie) return;
+        // 데미지 만큼 현재 체력 감소
+        currentHP -= damage;
+        // 체력이 0인지 검사
+        if(currentHP <= 0)
+        {
+            // 0이면 죽은 상태로 만들고 삭제 처리
+            isDie = true;
+            OnDie();
+        }
+        else
+        {
+            // TODO : 피격 애니메이션 실행
+        }
     }
 }
