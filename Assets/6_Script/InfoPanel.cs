@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class InfoPanel : MonoBehaviour
 {
-    [SerializeField] TMP_Text playerHpTxt;
-    [SerializeField] TMP_Text playerGoldTxt;
-    
+    [SerializeField] TMP_Text textPlayerHP; // 유저 체력
+    [SerializeField] TMP_Text textGold; // 골드
+
     void Update()
     {
-        // 체력을 표시
-        playerHpTxt.text = $"{PlayerManager.Instance.CurrentHP} / {PlayerManager.Instance.MaxHP}";
+        // 체력 표시
+        textPlayerHP.text = $"{PlayerManager.Instance.CurrentHP} / {PlayerManager.Instance.MaxHP}";
         // 골드 표시
-        playerGoldTxt.text = $"{PlayerManager.Instance.CurrentGold}";
+        textGold.text = $"{PlayerManager.Instance.CurrentGold}";
     }
 }
