@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TowerSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject towerPrefab; // 타워 프리펩
-    [SerializeField] int towerBuildGold = 50; // 타워건설 소요 골드
+    [SerializeField] TowerTemplate towerTemplate;
+    [SerializeField] InfoTower infoTower; // 타워 정보 패널
+
     ContactFilter2D filter; // Raycast용 파라미터
     List<RaycastHit2D> rcList; // Raycast 결과 저장용 리스트
 
@@ -17,6 +19,9 @@ public class TowerSpawner : MonoBehaviour
 
     void Update()
     {
+        // 마우스가 UI에 있을 때는 바로 리턴
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        
         // 마우스 왼쪽 버튼 클릭하면
         if (Input.GetMouseButtonDown(0))
         {
@@ -34,6 +39,8 @@ public class TowerSpawner : MonoBehaviour
                 // "TOWER" 태그인 아이템이 있으면
                 if (item.transform.CompareTag("TOWER"))
                 {
+                    // 타워정보패널에 표시할 정보 넘기고 패널 켜기
+                    infoTower.OnPanel(item.transform);
                     // 타워가 이미 있으므로 여기서 리턴
                     return;
                 }
@@ -49,15 +56,33 @@ public class TowerSpawner : MonoBehaviour
                 }
             }
         }
+        // 다른곳을 클릭했을 때 정보패널 없애기
+        else if (Input.GetMouseButtonUp(0))
+        {
+            foreach (var item in rcList)
+            {
+                // 타워가 있는 곳은 빼고
+                if (item.transform.CompareTag("TOWER"))
+                {
+                    return;
+                }
+            }
+            // 아닌 곳에서는 정보 패널 끄기
+            infoTower.OffPanel();
+        }
     }
     void SpawnTower(Transform tileTr)
     {
         // 건설비용이 소지골드보다 크면 리턴
-        if (towerBuildGold > PlayerManager.Instance.CurrentGold) return;
+        if (towerTemplate.weapon[0].cost > PlayerManager.Instance.CurrentGold)
+        {
+            // todo  건설불가 메세지 출력
+            return;
+        }
         // 소지골드에서 건설비용 차감
-        PlayerManager.Instance.CurrentGold -= towerBuildGold;
+        PlayerManager.Instance.CurrentGold -= towerTemplate.weapon[0].cost;
         // 타워프리펩으로 타워 생성
-        GameObject clone = Instantiate(towerPrefab, tileTr.position, 
+        GameObject clone = Instantiate(towerTemplate.towerPrefab, tileTr.position, 
             Quaternion.identity, transform);
         // 타워 무기 초기화
         clone.GetComponent<TowerWeapon>().Init();

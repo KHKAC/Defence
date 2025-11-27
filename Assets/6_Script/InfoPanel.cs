@@ -7,14 +7,14 @@ public class InfoPanel : MonoBehaviour
 {
     [SerializeField] TMP_Text textPlayerHP; // 유저 체력
     [SerializeField] TMP_Text textGold; // 골드
-    [SerializeField] TMP_Text textWave;
-    [SerializeField] TMP_Text textEnemy;
-    [SerializeField] WaveSystem waveSystem;
+    [SerializeField] TMP_Text textWave; // 웨이브
+    [SerializeField] TMP_Text textEnemyCount; // 적 수
+    [SerializeField] WaveSystem waveSystem; // 웨이브 시스템
 
     void Update()
     {
-        PlayerManager pmi = PlayerManager.Instance;
         // 체력 표시
+        PlayerManager pmi = PlayerManager.Instance;
         textPlayerHP.text = $"{pmi.CurrentHP} / {pmi.MaxHP}";
         // 골드 표시
         textGold.text = $"{pmi.CurrentGold}";
@@ -22,6 +22,6 @@ public class InfoPanel : MonoBehaviour
         textWave.text = waveSystem.GetWaveInfoString();
         // 적 수 표시
         EnemyManager emi = EnemyManager.Instance;
-        textEnemy.text = $"{emi.CurrentEnemyCount} / {emi.MaxEnemyCnt}";
+        textEnemyCount.text = $"{emi.CurrentEnemyCount} / {emi.MaxEnemyCount}";
     }
 }

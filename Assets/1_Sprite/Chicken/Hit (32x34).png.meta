@@ -125,18 +125,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -155,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3929df2ffe71ed241a547bad87b716f0
-      internalID: -857519043
+      spriteID: 531a973c1528de54689cb15ec443b48e
+      internalID: -799816094
       vertices: []
       indices: 
       edges: []
@@ -176,8 +164,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6aaa7abc97929b646b0b1a20300962db
-      internalID: 1729801722
+      spriteID: f21b60fb2ecdc9c4b8c381fadfc24841
+      internalID: -52324429
       vertices: []
       indices: 
       edges: []
@@ -197,8 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc88d75fd0ea06e41ace8b4b9c2fe711
-      internalID: 330190072
+      spriteID: 8391e7c602f66c8468b39f66b19f54f1
+      internalID: -1448511331
       vertices: []
       indices: 
       edges: []
@@ -218,8 +206,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4469fdf5671db54c93b3617adb63885
-      internalID: -1473933953
+      spriteID: 8a212c7e8f69b5946a682b134cf62f1e
+      internalID: -585668902
       vertices: []
       indices: 
       edges: []
@@ -239,8 +227,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59b588c9b8010a04bb74d84e0314953d
-      internalID: 734638309
+      spriteID: aae6f8f9964fedd40bf0c960d2024fb7
+      internalID: -1868765986
       vertices: []
       indices: 
       edges: []
@@ -256,11 +244,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Hit (32x34)_0: -857519043
-      Hit (32x34)_1: 1729801722
-      Hit (32x34)_2: 330190072
-      Hit (32x34)_3: -1473933953
-      Hit (32x34)_4: 734638309
+      Hit (32x34)_0: -799816094
+      Hit (32x34)_1: -52324429
+      Hit (32x34)_2: -1448511331
+      Hit (32x34)_3: -585668902
+      Hit (32x34)_4: -1868765986
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
