@@ -3,31 +3,32 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum ToastType // 메세지 종류 설정
+public enum ToastType // 메시지 종류 설정
 {
-    Money,      // 골드 모자랄 때
-    Build       // 건설이 불가능 할 때
+    MoneyBuild,  // 건설 골드 모자랄 때
+    MoneyUpgrade // 업그레이드 골드 모자랄 때
 }
+
 public class ToastMessage : MonoBehaviour
 {
-    TMP_Text toastMessage;
+    TMP_Text toastMsg;
     TMPAlpha tmpAlpha;
     void Start()
     {
-        toastMessage = GetComponent<TMP_Text>();
+        toastMsg = GetComponent<TMP_Text>();
         tmpAlpha = GetComponent<TMPAlpha>();
     }
-
     public void ShowToast(ToastType type)
     {
-        switch(type)
+        switch (type)
         {
-            case ToastType.Money:
-                toastMessage.text = "Not enough money";
+            case ToastType.MoneyBuild:
+                toastMsg.text = "Not enough money for build";
                 break;
-            case ToastType.Build:
-                toastMessage.text = "Invalid build tower";
+            case ToastType.MoneyUpgrade:
+                toastMsg.text = "Not enough money for upgrade";
                 break;
         }
+        tmpAlpha.FadeOut();
     }
 }
