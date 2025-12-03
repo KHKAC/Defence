@@ -7,21 +7,24 @@ using UnityEngine;
 [System.Serializable]
 public struct Wave
 {
-    [Tooltip("고정으로 할 경우 적 최대 수와 프리펩의 총 개수를 맞춰줘야한다")]
-    public bool isStatic;                   // 고정인지 랜덤인지
+    [Tooltip("고정일 경우 적최대수와 prefab수를 맞춰줘야함")]
+    public bool             isStatic;       // 고정인지 아닌지
     [Tooltip("적 생성 주기 : 작을수록 빨리 생성됨")]
-    public float spawnTime;                 // 적 생성 주기
+    public float            spawnTime;      // 적 생성 주기
     [Tooltip("적 최대 수 : 이번 웨이브에 나오는 적의 수")]
-    public int maxEnemyCount;               // 적 최대 숫자
-    public GameObject[] enemyPrefabs;       // 적 종류    
-    public float[] spawnTimeStatic;         // 고정일 때 적의 생성 주기
+    public int              maxEnemyCount;  // 적 최대 숫자
+    [Tooltip("지정한 적 수가 되면 앵그리모드 발동")]
+    public int              angryMode;      // 앵그리모드 발생 시기
+    public GameObject[]     enemyPrefabs;   // 적 종류 
+    public float[]          spawnTimeStatic; // 고정일때 적 생성 주기   
 }
 
-// Json 사용을 위한 wrapper class
+// JSon 사용을 위한 wrapper class
 public class WaveWrapper
 {
-    public Wave[] waveArray;
+    public Wave[] waveArray;    
 }
+
 public class WaveSystem : MonoBehaviour
 {
     const string FILE_NAME = "waves.json";
@@ -53,11 +56,11 @@ public class WaveSystem : MonoBehaviour
         return $"{currentWaveIndex + 1}\n--\n{waves.Length}";
     }
 
-    // 에디터 상단 메뉴가 아닌 WaveSystem이 붙어있는 컴포넌트에서 메뉴가 열린다
-    [ContextMenu("DefenceTower/Make Json data", false, 1)]
+    // 에디터 상단 메뉴가 아닌 WaveSystem이 붙어있는 컴퍼넌트에서 메뉴가 열린다
+    [ContextMenu("DefenseTower/Make Json data", false, 1)]
     public void MakeJsonData()
     {
-        // 저장 데이터가 배열인 경우 wrapper class로 한 번 감싸주자
+        // 저장 데이터가 배열인 경우 wrapper class로 한번 감싸주자
         WaveWrapper data = new WaveWrapper();
         data.waveArray = waves;
         string jsonData = JsonUtility.ToJson(data, true);
@@ -66,13 +69,13 @@ public class WaveSystem : MonoBehaviour
         Debug.Log("Make Json data is done.");
     }
 
-    [ContextMenu("DefenceTower/Load from Json", false, 2)]
-    public void LoadFromJson()
+    [ContextMenu("DefenseTower/Load from Json", false, 2)]
+    public void LoasFromJson()
     {
         string path = Path.Combine(Application.dataPath, FILE_NAME);
         string jsonData = File.ReadAllText(path);
         var json = JsonUtility.FromJson<WaveWrapper>(jsonData);
         waves = json.waveArray;
-        Debug.Log("Loaded Json data from file");
+        Debug.Log("Loaded Json data from file.");
     }
 }
