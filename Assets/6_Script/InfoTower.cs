@@ -40,9 +40,7 @@ public class InfoTower : MonoBehaviour
         gameObject.SetActive(true);
         UpdateTowerData();
         // 공격범위 이미지 켜기
-        towerAttackRange.OnAttackRange(
-            currentTower.transform.position,
-            currentTower.Range);
+        towerAttackRange.OnAttackRange(currentTower.transform.position, currentTower.Range);
     }
 
     public void OffPanel()
@@ -57,15 +55,22 @@ public class InfoTower : MonoBehaviour
         // 타워 정보 표시
         imageTower.sprite = currentTower.TowerSprite;
         textLevel.text = $"Level : {currentTower.Level}";
-        textDamage.text = $"Damage : {currentTower.Damage}";
+        // 감속 타워일 때는 Damage 대신 감속값을 보여준다.
+        if(currentTower.WeaponType == WeaponType.Slow)
+        {
+            textDamage.text = $"Slow : {currentTower.Slow}%";
+        }
+        else
+        {
+            textDamage.text = $"Damage : {currentTower.Damage}";
+        }
         textRate.text = $"Rate : {currentTower.Rate}";
         textRange.text = $"Range : {currentTower.Range}";
         textBtnUpgrade.text = $"Upgrade:\n{currentTower.CostUpgrade}";
         textBtnSell.text = $"Sell:\n{currentTower.CostSell}";
 
         // 더이상 업그레이드가 안되는 상황이면 버튼을 안 눌리게 처리
-        buttonUpgrade.interactable = 
-            currentTower.Level < currentTower.MaxLevel ? true : false;
+        buttonUpgrade.interactable = currentTower.Level < currentTower.MaxLevel ? true : false;
     }
 
     public void OnClickTowerUpgrade()
